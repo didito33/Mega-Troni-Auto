@@ -1,72 +1,65 @@
 using AutoMapper;
 using Mega_Troni_Auto.Data;
 using Mega_Troni_Auto.Models;
+using Mega_Troni_Auto.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mega_Troni_Auto.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class VehiclesController : ControllerBase
     {
-        private readonly MegaTronixDbContext _context;
+        private readonly IVehicleService _vehicleService;
         private readonly IMapper _mapper;
-        public VehiclesController(MegaTronixDbContext context, IMapper mapper)
+
+        public VehiclesController(IVehicleService vehicleService, IMapper mapper)
         {
-            _context = context;
+            _vehicleService = vehicleService;
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicles()
+        [HttpGet("get-all-vehicles")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult<IEnumerable<Vehicle>>> GetAllVehicles()
         {
-            return await _context.Vehicles.ToListAsync();
+            var vehicles = await _vehicleService.GetAllAsync();
+            return Ok(vehicles);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("get-vehicle/{id}")]
         public async Task<ActionResult<Vehicle>> GetVehicle(Guid id)
         {
-            var vehicle = await _context.Vehicles.FindAsync(id);
+            var vehicle = await _vehicleService.GetByIdAsync(id);
             if (vehicle == null) return NotFound();
-            return vehicle;
+            return Ok(vehicle);
         }
 
-        [HttpPost]
+        [Authorize(Roles = "Admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost("create-vehicle")]
         public async Task<ActionResult<Vehicle>> CreateVehicle(VehicleCreateDto dto)
         {
-            var vehicle = _mapper.Map<Vehicle>(dto);
-            vehicle.Id = Guid.NewGuid();
-            vehicle.DateAdded = DateTime.UtcNow;
-            vehicle.IsSold = false;
-
-            _context.Vehicles.Add(vehicle);
-            await _context.SaveChangesAsync();
-
+            var vehicle = await _vehicleService.CreateAsync(dto);
             return CreatedAtAction(nameof(GetVehicle), new { id = vehicle.Id }, vehicle);
         }
-
-        [HttpPut("{id}")]
+        
+        [Authorize(Roles = "Admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPut("update-vehicle/{id}")]
         public async Task<IActionResult> UpdateVehicle(Guid id, VehicleUpdateDto dto)
         {
-            var vehicle = await _context.Vehicles.FindAsync(id);
-            if (vehicle == null) return NotFound();
-
-            _mapper.Map(dto, vehicle);
-
-            await _context.SaveChangesAsync();
-            return NoContent();
+            var success = await _vehicleService.UpdateAsync(id, dto);
+            return success ? NoContent() : NotFound();
         }
 
-        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpDelete("delete-vehicle/{id}")]
         public async Task<IActionResult> DeleteVehicle(Guid id)
         {
-            var vehicle = await _context.Vehicles.FindAsync(id);
-            if (vehicle == null) return NotFound();
-
-            _context.Vehicles.Remove(vehicle);
-            await _context.SaveChangesAsync();
-            return NoContent();
+            var success = await _vehicleService.DeleteAsync(id);
+            return success ? NoContent() : NotFound();
         }
     }
 }
