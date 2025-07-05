@@ -1,0 +1,35 @@
+﻿@page "/vehicles"
+@using MegaTroniAuto.Frontend.Services
+@using MegaTroniAuto.Frontend.ViewModels
+@using MudBlazor
+@inject IVehicleService VehicleService
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+    <MudGrid>
+        @foreach (var vehicle in vehicles)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <MudCard>
+                    <MudCardMedia Image="@vehicle.ImageUrl" Height="200" />
+                    <MudCardContent>
+                        <MudText Typo="Typo.h6">@vehicle.Name</MudText>
+                        <MudText Typo="Typo.body2">@vehicle.Description</MudText>
+                        <MudText Color="Color.Primary">@($"{vehicle.Price:C}")</MudText>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary">Details</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+</MudContainer>
+
+@code {
+    private List<VehicleDto> vehicles = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        vehicles = await VehicleService.GetAllAsync();
+    }
+}

@@ -1,0 +1,12 @@
+﻿@using MegaTroniAuto.Frontend.Components.Layout
+@using MudBlazor
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <MudText Typo="Typo.h6">Sorry, the page could not be found.</MudText>
+        </LayoutView>
+    </NotFound>
+</Router>
