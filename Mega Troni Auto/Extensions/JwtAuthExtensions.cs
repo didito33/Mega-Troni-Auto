@@ -2,7 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Mega_Troni_Auto.Extensions
+namespace MegaTroniAuto.API.Extensions
 {
     public static class JwtAuthExtensions
     {

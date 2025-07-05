@@ -1,9 +1,9 @@
-using Mega_Troni_Auto.Data;
-using Mega_Troni_Auto.Extensions;
-using Mega_Troni_Auto.Helpers;
-using Mega_Troni_Auto.Models;
-using Mega_Troni_Auto.Services;
-using Mega_Troni_Auto.Services.Interfaces;
+using MegaTroniAuto.API.Data;
+using MegaTroniAuto.API.Extensions;
+using MegaTroniAuto.API.Helpers;
+using MegaTroniAuto.API.Models;
+using MegaTroniAuto.API.Services;
+using MegaTroniAuto.API.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

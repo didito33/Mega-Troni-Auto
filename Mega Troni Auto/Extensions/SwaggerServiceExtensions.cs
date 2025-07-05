@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
-namespace Mega_Troni_Auto.Extensions
+namespace MegaTroniAuto.API.Extensions
 {
     public static class SwaggerServiceExtensions
     {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Mega_Troni_Auto.Migrations
+namespace MegaTroniAuto.API.Migrations
 {
     /// <inheritdoc />
     public partial class AddIdentitySupport : Migration

@@ -1,6 +1,6 @@
-﻿using Mega_Troni_Auto.Models;
+﻿using MegaTroniAuto.API.Models;
 
-namespace Mega_Troni_Auto.Services.Interfaces
+namespace MegaTroniAuto.API.Services.Interfaces
 {
     public interface IVehicleService
     {

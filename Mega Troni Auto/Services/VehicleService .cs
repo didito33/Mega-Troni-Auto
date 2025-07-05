@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Mega_Troni_Auto.Data;
-using Mega_Troni_Auto.Models;
-using Mega_Troni_Auto.Services.Interfaces;
+using MegaTroniAuto.API.Data;
+using MegaTroniAuto.API.Models;
+using MegaTroniAuto.API.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Mega_Troni_Auto.Services
+namespace MegaTroniAuto.API.Services
 {
     public class VehicleService : IVehicleService
     {

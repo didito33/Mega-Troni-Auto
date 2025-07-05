@@ -1,9 +1,9 @@
-﻿using Mega_Troni_Auto.Models;
+﻿using MegaTroniAuto.API.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace Mega_Troni_Auto.Data
+namespace MegaTroniAuto.API.Data
 {
 
     public class MegaTronixDbContext : IdentityDbContext<ApplicationUser>

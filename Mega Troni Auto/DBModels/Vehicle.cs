@@ -1,4 +1,4 @@
-﻿namespace Mega_Troni_Auto.Models
+﻿namespace MegaTroniAuto.API.Models
 {
     public class Vehicle
     {

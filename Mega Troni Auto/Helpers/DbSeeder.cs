@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Mega_Troni_Auto.Helpers
+namespace MegaTroniAuto.API.Helpers
 {
     public class DbSeeder
     {

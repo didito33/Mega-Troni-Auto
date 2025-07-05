@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Mega_Troni_Auto.Models;
+using MegaTroniAuto.API.Models;
 
-namespace Mega_Troni_Auto.Helpers
+namespace MegaTroniAuto.API.Helpers
 {
     public class MappingProfile : Profile
     {

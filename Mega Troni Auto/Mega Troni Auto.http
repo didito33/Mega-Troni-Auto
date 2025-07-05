@@ -1,6 +1,6 @@
-@Mega_Troni_Auto_HostAddress = http://localhost:5125
+@MegaTroniAuto.API_HostAddress = http://localhost:5125
 
-GET {{Mega_Troni_Auto_HostAddress}}/weatherforecast/
+GET {{MegaTroniAuto.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

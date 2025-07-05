@@ -1,4 +1,4 @@
-﻿    using Mega_Troni_Auto.Models;
+﻿    using MegaTroniAuto.API.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.IdentityModel.Tokens;
@@ -6,7 +6,7 @@
     using System.Security.Claims;
     using System.Text;
 
-    namespace Mega_Troni_Auto.Controllers
+    namespace MegaTroniAuto.API.Controllers
     {
         [Route("api/[controller]/[action]")]
         [ApiController]

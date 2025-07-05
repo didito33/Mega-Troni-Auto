@@ -1,13 +1,13 @@
 using AutoMapper;
-using Mega_Troni_Auto.Data;
-using Mega_Troni_Auto.Models;
-using Mega_Troni_Auto.Services.Interfaces;
+using MegaTroniAuto.API.Data;
+using MegaTroniAuto.API.Models;
+using MegaTroniAuto.API.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Mega_Troni_Auto.Controllers
+namespace MegaTroniAuto.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
