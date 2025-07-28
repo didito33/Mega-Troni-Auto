@@ -1,5 +1,15 @@
 ﻿@page "/"
 @using MudBlazor
 
-<MudText Typo="Typo.h4" Class="my-4">Welcome to MegaTroni Auto</MudText>
-<MudText Typo="Typo.body1">Browse our vehicles and find your dream car!</MudText>
+
+<div class="hero-section">
+    <div class="hero-overlay">
+        <MudText Typo="Typo.h2" Class="text-white mb-2">Welcome to MegaTroni Auto</MudText>
+        <MudText Typo="Typo.subtitle1" Class="text-white">
+            Your next ride is just a click away.
+        </MudText>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" Href="/vehicles">
+            Browse Vehicles
+        </MudButton>
+    </div>
+</div> 

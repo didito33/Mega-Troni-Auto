@@ -4,6 +4,6 @@ namespace MegaTroniAuto.Frontend.Services
 {
     public interface IVehicleService
     {
-        Task<List<VehicleDto>> GetAllAsync();
+        Task<List<Vehicle>> GetAllAsync();
     }
 }

@@ -11,10 +11,10 @@ namespace MegaTroniAuto.Frontend.Services
             _http = http;
         }
 
-        public async Task<List<VehicleDto>> GetAllAsync()
+        public async Task<List<Vehicle>> GetAllAsync()
         {
-            var result = await _http.GetFromJsonAsync<List<VehicleDto>>("api/vehicles");
-            return result ?? new List<VehicleDto>();
+            var result = await _http.GetFromJsonAsync<List<Vehicle>>("api/vehicles");
+            return result ?? new List<Vehicle>();
         }
     }
 }

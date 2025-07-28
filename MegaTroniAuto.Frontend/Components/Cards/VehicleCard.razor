@@ -1,0 +1,49 @@
+﻿@using MegaTroniAuto.Frontend.ViewModels
+@using MudBlazor
+
+<MudCard Class="ma-2" Style="width: 320px;">
+    <MudCardMedia Image="@Vehicle.ImageUrl" Height="180" />
+    
+    <MudCardContent>
+        <MudText Typo="Typo.h6">@Vehicle.Make @Vehicle.Model</MudText>
+        <MudText Typo="Typo.body2" Class="mb-2">@Vehicle.Description</MudText>
+
+        <MudGrid>
+            <MudItem xs="6">
+                <MudText Typo="Typo.caption"><b>Year:</b> @Vehicle.Year</MudText>
+            </MudItem>
+            <MudItem xs="6">
+                <MudText Typo="Typo.caption"><b>Price:</b> @Vehicle.Price.ToString("C")</MudText>
+            </MudItem>
+            <MudItem xs="6">
+                <MudText Typo="Typo.caption"><b>Fuel:</b> @Vehicle.FuelType</MudText>
+            </MudItem>
+            <MudItem xs="6">
+                <MudText Typo="Typo.caption"><b>Transmission:</b> @Vehicle.Transmission</MudText>
+            </MudItem>
+            <MudItem xs="6">
+                <MudText Typo="Typo.caption"><b>Mileage:</b> @Vehicle.Mileage km</MudText>
+            </MudItem>
+            <MudItem xs="6">
+                <MudText Typo="Typo.caption"><b>Color:</b> @Vehicle.Color</MudText>
+            </MudItem>
+        </MudGrid>
+    </MudCardContent>
+
+    <MudCardActions Class="justify-between px-3">
+        <MudChip T="string" Color="@GetAvailabilityColor()" Variant="Variant.Filled">
+            @(Vehicle.IsAvailable ? "Available" : "Sold")
+        </MudChip>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="!Vehicle.IsAvailable">
+            View
+        </MudButton>
+    </MudCardActions>
+</MudCard>
+
+@code {
+    [Parameter]
+    public Vehicle Vehicle { get; set; } = new();
+    
+    private Color GetAvailabilityColor() =>
+        Vehicle.IsAvailable ? Color.Success : Color.Error;
+}

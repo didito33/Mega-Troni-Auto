@@ -1,35 +1,78 @@
 ﻿@page "/vehicles"
-@using MegaTroniAuto.Frontend.Services
 @using MegaTroniAuto.Frontend.ViewModels
+@using MegaTroniAuto.Frontend.Components.Cards
 @using MudBlazor
-@inject IVehicleService VehicleService
 
-<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+<MudPaper Class="p-4">
     <MudGrid>
-        @foreach (var vehicle in vehicles)
+        <MudItem xs="12" sm="4">
+            <MudSelect T="string" Label="Fuel Type" @bind-Value="_selectedFuel">
+                <MudSelectItem T="string" Value="@string.Empty">All</MudSelectItem>
+                @foreach (var fuel in _fuelTypes)
+                {
+                    <MudSelectItem T="string" Value="@fuel">@fuel</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="12" sm="4">
+            <MudSelect T="string" Label="Transmission" @bind-Value="_selectedTransmission">
+                <MudSelectItem T="string" Value="@string.Empty">All</MudSelectItem>
+                @foreach (var trans in _transmissions)
+                {
+                    <MudSelectItem T="string" Value="@trans">@trans</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="12" sm="4">
+            <MudSwitch T="bool" Label="Only Available" @bind-Checked="_onlyAvailable" />
+        </MudItem>
+    </MudGrid>
+
+    <MudDivider Class="my-3" />
+
+    <MudGrid>
+        @foreach (var vehicle in FilteredVehicles)
         {
-            <MudItem xs="12" sm="6" md="4">
-                <MudCard>
-                    <MudCardMedia Image="@vehicle.ImageUrl" Height="200" />
-                    <MudCardContent>
-                        <MudText Typo="Typo.h6">@vehicle.Name</MudText>
-                        <MudText Typo="Typo.body2">@vehicle.Description</MudText>
-                        <MudText Color="Color.Primary">@($"{vehicle.Price:C}")</MudText>
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Variant="Variant.Filled" Color="Color.Primary">Details</MudButton>
-                    </MudCardActions>
-                </MudCard>
+            <MudItem xs="12" sm="6" md="4" lg="3">
+                <VehicleCard Vehicle="@vehicle" />
             </MudItem>
         }
     </MudGrid>
-</MudContainer>
+</MudPaper>
 
 @code {
-    private List<VehicleDto> vehicles = new();
+    private string _selectedFuel = "";
+    private string _selectedTransmission = "";
+    private bool _onlyAvailable = false;
 
-    protected override async Task OnInitializedAsync()
+    private List<string> _fuelTypes = new List<string> { "Gasoline", "Diesel", "Electric", "Hybrid" };
+    private List<string> _transmissions = new List<string> { "Automatic", "Manual" };
+
+    private List<Vehicle> _vehicles = new()
     {
-        vehicles = await VehicleService.GetAllAsync();
-    }
+        new() {
+            Id = 1, Make = "Tesla", Model = "Model S", Year = 2023, Price = 89999,
+            Description = "Electric luxury sedan", FuelType = "Electric", Transmission = "Automatic",
+            Mileage = 15000, Color = "White", IsAvailable = true,
+            ImageUrl = "https://www.tesla.com/sites/default/files/modelsx-new/social/model-s-hero-social.jpg"
+        },
+        new() {
+            Id = 2, Make = "Ford", Model = "Mustang", Year = 2022, Price = 55999,
+            Description = "High-performance muscle car", FuelType = "Gasoline", Transmission = "Manual",
+            Mileage = 10000, Color = "Red", IsAvailable = false,
+            ImageUrl = "https://www.ford.com/is/image/Ford/2022-mustang"
+        },
+        new() {
+            Id = 3, Make = "Toyota", Model = "Camry", Year = 2021, Price = 27999,
+            Description = "Reliable mid-size sedan", FuelType = "Hybrid", Transmission = "Automatic",
+            Mileage = 32000, Color = "Silver", IsAvailable = true,
+            ImageUrl = "https://cdn.motor1.com/images/mgl/7ZJ0E/s3/2021-toyota-camry.jpg"
+        }
+    };
+
+    private IEnumerable<Vehicle> FilteredVehicles =>
+        _vehicles.Where(v =>
+            (string.IsNullOrEmpty(_selectedFuel) || v.FuelType == _selectedFuel) &&
+            (string.IsNullOrEmpty(_selectedTransmission) || v.Transmission == _selectedTransmission) &&
+            (!_onlyAvailable || v.IsAvailable));
 }

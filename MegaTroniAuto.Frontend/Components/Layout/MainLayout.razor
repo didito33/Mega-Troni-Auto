@@ -1,19 +1,60 @@
-﻿@inherits LayoutComponentBase
-@using MudBlazor
+﻿@using MudBlazor
+@inherits LayoutComponentBase
+
+<HeadContent>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</HeadContent>
 
 <MudLayout>
-    <MudAppBar Color="Color.Primary" Elevation="2">
-        <MudText Typo="Typo.h6">MegaTroni Auto</MudText>
+
+    <MudDrawer @bind-Open="_drawerOpen"
+               Variant="DrawerVariant.Temporary"
+               Elevation="1"
+               Style="background-color: #f0f0f0; color: white;">
+        <MudNavMenu Dense="true">
+
+            <MudNavLink Href="/" Match="NavLinkMatch.All">
+                <MudIcon Icon="@Icons.Material.Filled.Home" Class="mr-2" />
+                Home
+            </MudNavLink>
+
+            <MudNavLink Href="/vehicles">
+                <MudIcon Icon="@Icons.Material.Filled.DirectionsCar" Class="mr-2" />
+                Vehicles
+            </MudNavLink>
+
+        </MudNavMenu>
+    </MudDrawer>
+
+    <MudAppBar Elevation="2"
+        Style="background-color: #f0f0f0; color: white;"
+        Class="mud-appbar d-flex align-items-center">
+
+        <MudIconButton Icon="@Icons.Material.Filled.Menu"
+                       OnClick="@ToggleDrawer"
+                       Edge="Edge.Start"
+                       Color="Color.Inherit" />
+
+        <img src="/Images/MTLOGO.jpg" alt="MegaTroni Auto Logo" style="height:40px; margin-left:1rem;" />
+        <MudText Typo="Typo.h6" Class="ml-2" Style="color: white;">MegaTroni Auto</MudText>
     </MudAppBar>
 
     <MudMainContent>
-        <MudDialogProvider />
-        <MudSnackbarProvider MaxDisplayedSnacks="3">
+        <MudContainer MaxWidth="MaxWidth.Medium" Class="py-4">
             @Body
-        </MudSnackbarProvider>
+        </MudContainer>
     </MudMainContent>
 
-    <MudPaper Class="pa-4 mt-6 text-center" Elevation="0">
-        <MudText Typo="Typo.caption">© 2025 MegaTroni Auto</MudText>
-    </MudPaper>
+    <footer>
+        <MudPaper Class="pa-4 mt-6 text-center" Elevation="0">
+            <MudText Typo="Typo.caption">© 2025 MegaTroni Auto</MudText>
+        </MudPaper>
+    </footer>
+
 </MudLayout>
+
+@code {
+    private bool _drawerOpen = false;
+    private void ToggleDrawer() => _drawerOpen = !_drawerOpen;
+}
