@@ -8,8 +8,8 @@
         public int Year { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; } = string.Empty;
-        public string FuelType { get; set; } = string.Empty;
-        public string Transmission { get; set; } = string.Empty; // e.g., Automatic, Manual
+        public FuelType FuelType { get; set; }
+        public Transmission Transmission { get; set; }
         public int Mileage { get; set; } // in kilometers
         public string Color { get; set; } = string.Empty;
         public bool IsAvailable { get; set; } = true;

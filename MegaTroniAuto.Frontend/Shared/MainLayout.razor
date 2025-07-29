@@ -1,5 +1,6 @@
 ﻿@using MudBlazor
 @inherits LayoutComponentBase
+@namespace MegaTroniAuto.Frontend.Shared
 
 <HeadContent>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
@@ -7,7 +8,7 @@
 </HeadContent>
 
 <MudLayout>
-
+    <MudPopoverProvider />
     <MudDrawer @bind-Open="_drawerOpen"
                Variant="DrawerVariant.Temporary"
                Elevation="1"
@@ -37,7 +38,6 @@
                        Color="Color.Inherit" />
 
         <img src="/Images/MTLOGO.jpg" alt="MegaTroni Auto Logo" style="height:40px; margin-left:1rem;" />
-        <MudText Typo="Typo.h6" Class="ml-2" Style="color: white;">MegaTroni Auto</MudText>
     </MudAppBar>
 
     <MudMainContent>

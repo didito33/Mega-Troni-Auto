@@ -6,9 +6,9 @@ using MudBlazor.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Razor Components (.NET 8)
+builder.Services.AddRazorPages();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
 builder.Services.AddMudServices();
 
 builder.Services.AddScoped<IVehicleService, VehicleService>();
@@ -33,8 +33,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-// ✅ Razor Components endpoint (this replaces _Host)
-app.MapRazorComponents<App>()
-   .AddInteractiveServerRenderMode();
+app.MapRazorPages();
+app.MapFallbackToPage("/_Host");
 
 app.Run();

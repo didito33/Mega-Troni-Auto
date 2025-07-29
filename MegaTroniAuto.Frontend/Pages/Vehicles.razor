@@ -1,0 +1,94 @@
+﻿@page "/vehicles"
+@using MegaTroniAuto.Frontend.ViewModels
+@using MegaTroniAuto.Frontend.Components.Cards
+@using MudBlazor
+
+<MudPaper Class="p-4">
+    <MudGrid>
+        <MudItem xs="12" sm="4">
+            <MudStack Direction="Row" AlignItems="AlignItems.Center" Spacing="2">
+                <MudText>Fuel Type:</MudText>
+                <MudSelect T="FuelType?" @bind-Value="SelectedFuel" Dense="true" Style="min-width: 150px;">
+                    <MudSelectItem T="FuelType?" Value="@((FuelType?)null)">All</MudSelectItem>
+                    @foreach (var fuel in Enum.GetValues(typeof(FuelType)).Cast<FuelType>())
+                    {
+                        <MudSelectItem T="FuelType?" Value="@fuel">@fuel</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudStack>
+        </MudItem>
+
+        <MudItem xs="12" sm="4">
+            <MudStack Direction="Row" AlignItems="AlignItems.Center" Spacing="2">
+                <MudText>Transmission:</MudText>
+                <MudSelect T="Transmission?" @bind-Value="SelectedTransmission" Dense="true" Style="min-width: 150px;">
+                    <MudSelectItem T="Transmission?" Value="@((Transmission?)null)">All</MudSelectItem>
+                    @foreach (var trans in Enum.GetValues(typeof(Transmission)).Cast<Transmission>())
+                    {
+                        <MudSelectItem T="Transmission?" Value="@trans">@trans</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudStack>
+        </MudItem>
+
+        <MudItem xs="12" sm="4" Style="min-width: 250px;">
+            <MudStack Direction="Row" AlignItems="AlignItems.Center" Spacing="2" Style="flex-wrap: nowrap;">
+                <MudText>Only Available:</MudText>
+                <MudSwitch T="bool" @bind-Checked="OnlyAvailable" />
+            </MudStack>
+        </MudItem>
+    </MudGrid>
+
+    <MudDivider Class="my-3" />
+
+    <MudGrid>
+        @foreach (var vehicle in FilteredVehicles)
+        {
+            <MudItem xs="12" sm="6" md="4" lg="3">
+                <VehicleCard Vehicle="@vehicle" />
+            </MudItem>
+        }
+    </MudGrid>
+</MudPaper>
+
+@code {
+    private FuelType? _selectedFuel;
+    private Transmission? _selectedTransmission;
+    private bool _onlyAvailable;
+
+    private FuelType? SelectedFuel
+    {
+        get => _selectedFuel;
+        set
+        {
+            _selectedFuel = value;
+            StateHasChanged();
+        }
+    }
+
+    private Transmission? SelectedTransmission
+    {
+        get => _selectedTransmission;
+        set
+        {
+            _selectedTransmission = value;
+            StateHasChanged();
+        }
+    }
+
+    private bool OnlyAvailable
+    {
+        get => _onlyAvailable;
+        set
+        {
+            _onlyAvailable = value;
+            StateHasChanged();
+        }
+    }
+
+    private IEnumerable<Vehicle> FilteredVehicles =>
+        _vehicles.Where(v =>
+            (!SelectedFuel.HasValue || v.FuelType == SelectedFuel.Value) &&
+            (!SelectedTransmission.HasValue || v.Transmission == SelectedTransmission.Value) &&
+            (!OnlyAvailable || v.IsAvailable));
+}
